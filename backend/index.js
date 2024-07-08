@@ -77,9 +77,7 @@ db.serialize(() => {
 
 // Création d'un utilisateur
 app.post('/users', (req, res) => {
-  const requête = req.body;
-  const insert = `INSERT INTO User (username, password, email) VALUES (?,?,?)`;
-  db.run(insert, [requête.username, requête.password, requête.email], (err) => {
+  db.run(`INSERT INTO User (id, username, password, email) VALUES (?,?,?,?)`,  (err) => {
     if (err) {
       return res.status(500).json({ error: 'Error creating user' });
     }
