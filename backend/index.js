@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 });
 
 // Connection à la base de données SQLite
-const db = new sqlite3.Database('./sql/todo.db', (err) => {
+const db = new sqlite3.Database('./sql/database.db', (err) => {
   if (err) {
     console.error("Error opening database" + err.message);
   } else {
