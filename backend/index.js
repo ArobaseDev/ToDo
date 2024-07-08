@@ -1,14 +1,14 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 const PORT = 3000;
 
 // lancement de l'application express
 const app = express();
 
-// Routes
-app.get('/', (req, res) => {
-  res.send('Welcome to the Todo API!');
-});
+// Middleware pour parse les données du corps des requêtes
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Connection à la base de données SQLite
 const db = new sqlite3.Database('./sql/database.db', (err) => {
@@ -77,9 +77,12 @@ db.serialize(() => {
 
 // Création d'un utilisateur
 app.post('/users', (req, res) => {
-  db.run(`INSERT INTO User (id, username, password, email) VALUES (?,?,?,?)`,  (err) => {
+  const requête = req.body;
+  const insert = `INSERT INTO User (username, password, email) VALUES (?,?,?)`;
+  const params = [requête.username, requête.password, requête.email];
+  db.run(insert, params, (err) => {
     if (err) {
-      return res.status(500).json({ error: 'Error creating user' });
+      return res.status(400).json({"error": err.message });
     }
     res.status(201).json({ message: 'User created successfully' });
   });
