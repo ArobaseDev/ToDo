@@ -15,8 +15,5 @@
     "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7"
   },
-  "description": "",
-  "devDependencies": {
-    "typescript": "^5.5.3"
-  }
+  "description": ""
 }
