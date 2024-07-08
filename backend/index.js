@@ -52,6 +52,24 @@ const db = new sqlite3.Database('./todo.db', (err) => {
   }
 });
 
+/**
+ * Partie Users
+ */
+
+// Création d'un utilisateur
+app.post('/users', (req, res) => {
+  const { username, password, email } = req.body;
+  const insert = `INSERT INTO User (username, password, email) VALUES (?,?,?)`;
+  db.run(insert, [username, password, email], (err) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error creating user' });
+    }
+    res.status(201).json({ message: 'User created successfully' });
+  });
+})
+
+
+
 // Lancement du serveur sur le port 3000
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
