@@ -5,6 +5,11 @@ const PORT = 3000;
 // lancement de l'application express
 const app = express();
 
+// Routes
+app.get('/', (req, res) => {
+  res.send('Welcome to the Todo API!');
+});
+
 // Connection à la base de données SQLite
 const db = new sqlite3.Database('./todo.db', (err) => {
   if (err) {
