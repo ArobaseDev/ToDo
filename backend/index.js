@@ -27,7 +27,7 @@ db.serialize(() => {
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
     password TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL
+    email TEXT NOT NULL
   )`, (err) => {
     if (err) {
       console.log(err);
@@ -49,10 +49,10 @@ db.serialize(() => {
     title TEXT NOT NULL,
     description TEXT,
     is_done BOOLEAN DEFAULT 0,
-    createdAt TIMESTAMP,
-    finishedAt TIMESTAMP,
-    userId INTEGER NOT NULL
-    FOREIGN KEY(userId) REFERENCES User(id)
+    createdAt TEXT TIMESTAMP,
+    finishedAt TEXT TIMESTAMP,
+    user_id INTEGER NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES User(user_id)
   )`, (err) => {
     if (err) {
       console.log(err);
@@ -61,7 +61,7 @@ db.serialize(() => {
   });
 
   // Requêtes pour ajouter et enregister des tâches
-  db.run(`INSERT INTO Task (title, description, is_done, createdAt, finishedAt, userId) VALUES ('A faire', 'Faire des chocolats', 0, new Date(), null, 1), ('A faire', 'Faire des pommes', 0, new Date(), null, 2), ('A faire', 'Faire des croissants', 0, new Date(), null, 3)`, (err) => {
+  db.run(`INSERT INTO Task (title, description, is_done, createdAt, finishedAt, user_id) VALUES ('A faire', 'Faire des chocolats', 0, '2024-07-09 16:00:00', null, 1), ('A faire', 'Faire des pommes', 0, '2024-07-10 14:00:00', null, 2), ('A faire', 'Faire des croissants', 0, '2024-07-11 15:00:00', null, 3)`, (err) => {
     if (err) {
       console.log(err);
       throw err;
