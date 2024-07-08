@@ -52,15 +52,17 @@ const db = new sqlite3.Database('./sql/database.db', (err) => {
   }
 });
 
+
 /**
  * Partie Users
  */
 
+
 // Création d'un utilisateur
 app.post('/users', (req, res) => {
-  const { username, password, email } = req.body;
+  const requête = req.body;
   const insert = `INSERT INTO User (username, password, email) VALUES (?,?,?)`;
-  db.run(insert, [username, password, email], (err) => {
+  db.run(insert, [requête.username, requête.password, requête.email], (err) => {
     if (err) {
       return res.status(500).json({ error: 'Error creating user' });
     }
@@ -68,7 +70,119 @@ app.post('/users', (req, res) => {
   });
 })
 
+// Récupération de tous les utilisateurs
+app.get('/users', (req, res) => {
+  const sql = 'SELECT * FROM User';
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error retrieving users' });
+    }
+    res.json(rows);
+  });
+});
 
+// Récupération d'un utilisateur par son ID
+app.get('/users/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const sql = 'SELECT * FROM User WHERE id =?';
+  db.get(sql, [id], (err, row) => {
+    if (err) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(row);
+  });
+});
+
+// Modification d'un utilisateur
+app.put('/users/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const requête = req.body;
+  const update = `UPDATE User SET username =?, password =?, email =? WHERE id =?`;
+  db.run(update, [requête.username, requête.password, requête.email, requête.id], (err) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error updating user' });
+    }
+    res.json({ message: 'User updated successfully' });
+  });
+});
+
+// Suppression d'un utilisateur
+app.delete('/users/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const sql = 'DELETE FROM User WHERE id =?';
+  db.run(sql, [id], (err) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error deleting user' });
+    }
+    res.json({ message: 'User deleted successfully' });
+  });
+});
+
+
+/**
+ * Partie Tasks
+ */
+
+
+// Création d'une tâche
+app.post('/tasks', (req, res) => {
+  const requête = req.body;
+  const insert = `INSERT INTO Task (title, description, is_done, createdAt, finishedAt, userId) VALUES (?,?,?,?,?,?)`;
+  db.run(insert, [requête.title, requête.description, 0, new Date(), null, requête.userId], (err) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error creating task' });
+    }
+    res.status(201).json({ message: 'Task created successfully' });
+  });
+})
+
+// Récupération de toutes les tâches
+app.get('/tasks', (req, res) => {
+  const sql = 'SELECT * FROM Task';
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error retrieving tasks' });
+    }
+    res.json(rows);
+  });
+});
+
+// Récupération d'une tâche par son ID
+app.get('/tasks/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const sql = 'SELECT * FROM Task WHERE id =?';
+  db.get(sql, [id], (err, row) => {
+    if (err) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+    res.json(row);
+  });
+});
+
+// Modification d'une tâche
+app.put('/tasks/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const requête = req.body;
+  const update = `UPDATE Task SET title =?, description =?, is_done =?, createdAt =?, finishedAt =? WHERE id =?`;
+  db.run(update, [requête.title, requête.description, requête.is_done, requête.createdAt, requête.finishedAt, requête.id], (err) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error updating task' });
+    }
+    res.json({ message: 'Task updated successfully' });
+  });
+});
+
+// Suppression d'une tâche
+app.delete('/tasks/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const sql = 'DELETE FROM Task WHERE id =?';
+  db.run(sql, [id], (err) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error deleting task' });
+    }
+    res.json({ message: 'Task deleted successfully' });
+  });
+});
 
 // Lancement du serveur sur le port 3000
 app.listen(PORT, () => {
