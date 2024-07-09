@@ -1,11 +1,9 @@
-// Import express
-import express from "express";
-// Import cors
-import cors from "cors";
+const express = require("express");
+const cors = require("cors");
+const router = require("./routes/routes.js");
+
 // Import connction to the database
-import bdd from "./config/database.js";
-// Import router
-import Router from "./routes/routes.js";
+const bdd = require("./config/database");
 
 // Init express app
 const app = express();
@@ -24,7 +22,7 @@ bdd.authenticate()
   .catch((err) => console.error("Could not connect to the database:", err));
 
 // Use the router
-app.use(Router);
+app.use(router);
 
 // Start the server
 app.listen(port, () => {
