@@ -35,6 +35,14 @@ db.serialize(() => {
     }
   });
 
+  // Requêtes pour ajouter et enregister des utilisateurs
+  db.run(`INSERT INTO User (username, password, email) VALUES ('hadil', 'hadil932', 'hadil@example.com'), ('desire', 'desire921', 'desire@example.com'), ('kevin', 'kevin910', 'kevin@example.com')`, (err) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+  });
+
   // Requêtes pour créer les table des tâches
   db.run(`CREATE TABLE IF NOT EXISTS Task (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -129,8 +137,8 @@ app.delete('/users/:id', (req, res) => {
 // Création d'une tâche
 app.post('/tasks', (req, res) => {
   const requête = req.body;
-  const insert = `INSERT INTO Task (title, description, is_done, createdAt, finishedAt, userId) VALUES (?,?,?,?,?,?)`;
-  db.run(insert, [requête.title, requête.description, 0, new Date(), null, requête.userId], (err) => {
+  const insert = `INSERT INTO Task (title, description, completed, createdAt, finishedAt, user_id) VALUES (?,?,?,?,?,?)`;
+  db.run(insert, [requête.title, requête.description, requête.completed, requête.createdAt, requête.finishedAt, requête.user_id], (err) => {
     if (err) {
       console.log(err);
     }
@@ -165,8 +173,8 @@ app.get('/tasks/:id', (req, res) => {
 app.put('/tasks/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const requête = req.body;
-  const update = `UPDATE Task SET title =?, description =?, is_done =?, createdAt =?, finishedAt =? WHERE id =?`;
-  db.run(update, [requête.title, requête.description, requête.is_done, requête.createdAt, requête.finishedAt, requête.id], (err) => {
+  const update = `UPDATE Task SET title =?, description =?, completed =?, createdAt =?, finishedAt =? WHERE id =?`;
+  db.run(update, [requête.title, requête.description, requête.completed, requête.createdAt, requête.finishedAt, requête.id], (err) => {
     if (err) {
       console.log(err);
     }
