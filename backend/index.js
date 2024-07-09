@@ -35,14 +35,6 @@ db.serialize(() => {
     }
   });
 
-  // Requêtes pour ajouter et enregister des utilisateurs
-  db.run(`INSERT INTO User (username, password, email) VALUES ('hadil', 'hadil932', 'hadil@example.com'), ('desire', 'desire921', 'desire@example.com'), ('kevin', 'kevin910', 'kevin@example.com')`, (err) => {
-    if (err) {
-      console.log(err);
-      throw err;
-    }
-  });
-
   // Requêtes pour créer les table des tâches
   db.run(`CREATE TABLE IF NOT EXISTS Task (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
