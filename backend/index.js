@@ -176,7 +176,7 @@ app.put('/tasks/:id', (req, res) => {
   const update = `UPDATE Task SET title =?, description =?, is_done =?, createdAt =?, finishedAt =? WHERE id =?`;
   db.run(update, [requête.title, requête.description, requête.is_done, requête.createdAt, requête.finishedAt, requête.id], (err) => {
     if (err) {
-      return res.status(500).json({ error: 'Error updating task' });
+      console.log(err);
     }
     res.json({ message: 'Task updated successfully' });
   });
@@ -188,7 +188,7 @@ app.delete('/tasks/:id', (req, res) => {
   const sql = 'DELETE FROM Task WHERE id =?';
   db.run(sql, [id], (err) => {
     if (err) {
-      return res.status(500).json({ error: 'Error deleting task' });
+      console.log(err);
     }
     res.json({ message: 'Task deleted successfully' });
   });
