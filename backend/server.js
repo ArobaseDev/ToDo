@@ -1,5 +1,3 @@
-// Import express
-import express from "express";
 // Import cors
 import cors from "cors";
 // Import connction to the database
@@ -7,11 +5,14 @@ import bdd from "./config/database.js";
 // Import router
 import Router from "./routes/routes.js";
 
+
+// Init express app
+const express = require('express');
+const app = express();
+
 /// port 3000
 const port = 3000;
 
-// Init express app
-const app = express();
 // Use express json middleware
 app.use(express.json());
 // Use cors middleware
