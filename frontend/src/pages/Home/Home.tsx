@@ -41,7 +41,7 @@ export default function Home() {
 </div>
 <div className="rightPanel">
   <div className="illustration">
-    <img src="" alt="image check-list" className="rightPanel-img"/>
+    <img  data-alt="image check-list" className="rightPanel-img"/>
   </div>
   <h2>My TODO App !</h2>
 </div>
