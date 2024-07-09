@@ -61,7 +61,7 @@ db.serialize(() => {
   });
 
   // Requêtes pour ajouter et enregister des tâches
-  db.run(`INSERT INTO Task (title, description, is_done, createdAt, finishedAt, user_id) VALUES ('A faire', 'Faire des chocolats', 0, '2024-07-09 16:00:00', null, 1), ('A faire', 'Faire des pommes', 0, '2024-07-10 14:00:00', null, 2), ('A faire', 'Faire des croissants', 0, '2024-07-11 15:00:00', null, 3)`, (err) => {
+  db.run(`INSERT INTO Task (title, description, completed, createdAt, finishedAt, user_id) VALUES ('A faire', 'Faire des chocolats', 0, '2024-07-09 16:00:00', null, 1), ('A faire', 'Faire des pommes', 0, '2024-07-10 14:00:00', null, 2), ('A faire', 'Faire des croissants', 0, '2024-07-11 15:00:00', null, 3)`, (err) => {
     if (err) {
       console.log(err);
       throw err;
