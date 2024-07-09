@@ -68,6 +68,3 @@ exports.deleteUser = async (req, res) => {
     console.error(error);
   }
 };
-
-// Export the User model
-// exports.default = User;
