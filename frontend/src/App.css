@@ -5,6 +5,8 @@
   margin: 0;
   padding: 0;
 }
+
+
 body {
   background-color: #333;
   color: #fefefe;
@@ -13,11 +15,6 @@ body {
   width: 100vw;
 }
 
-#app {
-  width: 100%;
-  height: auto;
-  background-color: red;
-}
 
 .globalPanel {
   background: #fefefe;
