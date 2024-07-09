@@ -59,14 +59,6 @@ db.serialize(() => {
       throw err;
     }
   });
-
-  // Requêtes pour ajouter et enregister des tâches
-  db.run(`INSERT INTO Task (title, description, completed, createdAt, finishedAt, user_id) VALUES ('A faire', 'Faire des chocolats', 0, '2024-07-09 16:00:00', null, 1), ('A faire', 'Faire des pommes', 0, '2024-07-10 14:00:00', null, 2), ('A faire', 'Faire des croissants', 0, '2024-07-11 15:00:00', null, 3)`, (err) => {
-    if (err) {
-      console.log(err);
-      throw err;
-    }
-  });
 });
 
 
@@ -82,7 +74,7 @@ app.post('/users', (req, res) => {
   const params = [requête.username, requête.password, requête.email];
   db.run(insert, params, (err) => {
     if (err) {
-      return res.status(400).json({"error": err.message });
+      console.log(err);
     }
     res.status(201).json({ message: 'User created successfully' });
   });
@@ -93,7 +85,7 @@ app.get('/users', (req, res) => {
   const sql = 'SELECT * FROM User';
   db.all(sql, [], (err, rows) => {
     if (err) {
-      return res.status(500).json({ error: 'Error retrieving users' });
+      console.log(err);
     }
     res.json(rows);
   });
@@ -105,7 +97,7 @@ app.get('/users/:id', (req, res) => {
   const sql = 'SELECT * FROM User WHERE id =?';
   db.get(sql, [id], (err, row) => {
     if (err) {
-      return res.status(404).json({ error: 'User not found' });
+      console.log(err);
     }
     res.json(row);
   });
@@ -118,7 +110,7 @@ app.put('/users/:id', (req, res) => {
   const update = `UPDATE User SET username =?, password =?, email =? WHERE id =?`;
   db.run(update, [requête.username, requête.password, requête.email, requête.id], (err) => {
     if (err) {
-      return res.status(500).json({ error: 'Error updating user' });
+      console.log(err);
     }
     res.json({ message: 'User updated successfully' });
   });
@@ -130,7 +122,7 @@ app.delete('/users/:id', (req, res) => {
   const sql = 'DELETE FROM User WHERE id =?';
   db.run(sql, [id], (err) => {
     if (err) {
-      return res.status(500).json({ error: 'Error deleting user' });
+      console.log(err);
     }
     res.json({ message: 'User deleted successfully' });
   });
@@ -148,7 +140,7 @@ app.post('/tasks', (req, res) => {
   const insert = `INSERT INTO Task (title, description, is_done, createdAt, finishedAt, userId) VALUES (?,?,?,?,?,?)`;
   db.run(insert, [requête.title, requête.description, 0, new Date(), null, requête.userId], (err) => {
     if (err) {
-      return res.status(500).json({ error: 'Error creating task' });
+      console.log(err);
     }
     res.status(201).json({ message: 'Task created successfully' });
   });
@@ -159,7 +151,7 @@ app.get('/tasks', (req, res) => {
   const sql = 'SELECT * FROM Task';
   db.all(sql, [], (err, rows) => {
     if (err) {
-      return res.status(500).json({ error: 'Error retrieving tasks' });
+      console.log(err);
     }
     res.json(rows);
   });
@@ -171,7 +163,7 @@ app.get('/tasks/:id', (req, res) => {
   const sql = 'SELECT * FROM Task WHERE id =?';
   db.get(sql, [id], (err, row) => {
     if (err) {
-      return res.status(404).json({ error: 'Task not found' });
+      console.log(err);
     }
     res.json(row);
   });
