@@ -1,17 +1,17 @@
 const { Task } = require("./models/Task");
 
-// Get All Users
-exports.getUsers = async (req, res) => {
+// Get All Tasks
+exports.getTasks = async (req, res) => {
     try {
-      const user = await User.findAll();
-      res.json(user);
+      const task = await Task.findAll();
+      res.json(task);
     } catch (error) {
       console.error(error);
     }
   };
   
-  // Get User by ID
-  exports.getUserById = async (req, res) => {
+  // Get Task by ID
+  exports.getTaskById = async (req, res) => {
     try {
       const task = await Task.findAll({
           where: { 
@@ -23,45 +23,59 @@ exports.getUsers = async (req, res) => {
       console.error(error);
     }
   };
+
+  // Get Tasks by User ID
+  exports.getTasksByUserId = async (req, res) => {
+    try {
+      const task = await Task.findAll({
+          where: { 
+              user_id: req.params.user_id 
+          },  
+      });
+      res.json(task);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   
-  // Create a new User
+  // Create a new Task
   exports.createTask = async (req, res) => {
     try {
-      await User.create(req.body);
+      await Task.create(req.body);
       res.json({ 
-          "message": "User created successfully"
+          "message": "Task created successfully"
       });
     } catch (error) {
       console.error(error);
     }
   };
   
-  // Update a User
+  // Update a Task
   exports.updateTask = async (req, res) => {
     try {
-      const user = await User.update(req.body, {
+      const task = await Task.update(req.body, {
           where: {
               id: req.params.id
           }
       });
       res.json({
-          "message": "User updated successfully"
+        "message": "Task updated successfully"
       });
     } catch (error) {
       console.error(error);
     }
   };
-  
-  // Delete a User
+
+  // Delete a Task
   exports.deleteTask = async (req, res) => {
     try {
-      const user = await User.destroy({
+      const task = await Task.destroy({
           where: {
               id: req.params.id
           }
       });
       res.json({
-          "message": "User deleted successfully"
+          "message": "Task deleted successfully"
       });
     } catch (error) {
       console.error(error);
