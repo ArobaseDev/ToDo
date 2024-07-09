@@ -48,7 +48,7 @@ db.serialize(() => {
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
     description TEXT,
-    is_done BOOLEAN DEFAULT 0,
+    completed BOOLEAN DEFAULT 0,
     createdAt TEXT TIMESTAMP,
     finishedAt TEXT TIMESTAMP,
     user_id INTEGER NOT NULL,
