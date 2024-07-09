@@ -4,7 +4,7 @@ const { User } = require ("../models/User");
 // Get All Users
 exports.getUsers = async (req, res) => {
   try {
-    const user = await User.findAll();
+    const user = await this.findAll();
     res.json(user);
   } catch (error) {
     console.error(error);
@@ -14,7 +14,7 @@ exports.getUsers = async (req, res) => {
 // Get User by ID
 exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findAll({
+    const user = await this.findAll({
         where: { 
             id: req.params.id 
         },  
@@ -28,7 +28,7 @@ exports.getUserById = async (req, res) => {
 // Create a new User
 exports.createUser = async (req, res) => {
   try {
-    await User.create(req.body);
+    await this.create(req.body);
     res.json({ 
         "message": "User created successfully"
     });
@@ -40,7 +40,7 @@ exports.createUser = async (req, res) => {
 // Update a User
 exports.updateUser = async (req, res) => {
   try {
-    const user = await User.update(req.body, {
+    const user = await this.update(req.body, {
         where: {
             id: req.params.id
         }
@@ -56,7 +56,7 @@ exports.updateUser = async (req, res) => {
 // Delete a User
 exports.deleteUser = async (req, res) => {
   try {
-    const user = await User.destroy({
+    const user = await this.destroy({
         where: {
             id: req.params.id
         }
