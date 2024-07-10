@@ -32,22 +32,14 @@
               type="checkbox"
               checked={todo.completed}
             onChange={() => onToggle(todo.id)}
-              // onChange={() => {
-              //   setTodos(
-              //     todos.map((todo) =>
-              //       todo.id === todo.id
-              //         ? { ...todo, completed: !todo.completed }
-              //         : todo
-              //     )
-              //   );
-              // }}
+  
             />
             <p className="ml-4"> Tâche {todo.completed ? `terminée ` : ` à effectuer`}</p>
 
           </div>
           <div className="border-t-2 border-slate-400 px-6 py-3 ">
             <div className="flex items-center gap-2 justify-end">
-              <button className="text-red-600 bg-indigo-200  rounded px-3 hover:bg-purple">Modifier</button>
+              {/* <button className="text-red-600 bg-indigo-200  rounded px-3 hover:bg-purple">Modifier</button> */}
               <button onClick={() => onDelete(todo.id)} className="text-red-600 bg-indigo-200  rounded px-3 hover:bg-purple">Supprimer</button>
             </div>
           </div>

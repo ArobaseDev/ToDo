@@ -5,7 +5,6 @@ import {Modal, Ripple, initTWE} from 'tw-elements'
 //import 'bootstrap/dist/css/bootstrap.min.css'
 import '../assets/css/index.css'
 import ImgAdd from '../assets/img/icons8-plus-188.png'
-import TodoItem from "./TodoItem";
 import Todo from "./Todo";
 
 export default function TodoList() {
@@ -19,24 +18,24 @@ export default function TodoList() {
     },
     {
       id: 2,
-      title: "Task 2",
+      title: "Sortir le chat",
       description: " Lorem ipsum dolores ... ",
       completed: true,
       created_at: '01/07/2024'
     },
     {
       id: 3,
-      title: "Task 3",
+      title: "Cirer le parquet",
       description: " Lorem ipsum dolores ... ",
       completed: false,
       created_at: '01/07/2024'
     },
     {
       id: 4,
-      title: "Task 2",
+      title: "Faire les courses pour le chat",
       description: " Lorem ipsum dolores ... ",
       completed: true,
-      created_at: '01/07/2024'
+      created_at: '20/05/2024'
     },
     {
       id: 5,
@@ -103,9 +102,14 @@ export default function TodoList() {
     },
   ];
 
-  const [todos, setTodos] = useState(list);
+  let listLS = JSON.parse(localStorage.getItem("todos")) || [];
+
+
+
+  const [todos, setTodos] = useState(listLS);
   const [newTodo, setNewTodo] = useState('');
   const [newInfo, setNewInfo] = useState('');
+  const [todoDate, setTodoDate] = useState("")
   const [logIn, setLogIn] = useState(false);
 
   const [show, setShow] = useState(false);
@@ -124,11 +128,15 @@ export default function TodoList() {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
+const displayLS = () =>{
+
+}
+
   const addTodo = () => {
     const todo = {
       id: new Date().getTime(),
-      titre: newTodo,
-      descriptions:newInfo,
+      title: newTodo,
+      description:newInfo,
       completed: false,
     };
     setTodos([...todos, todo]);
@@ -208,16 +216,12 @@ export default function TodoList() {
                   
                   value={newInfo}
                   onChange={(e) => setNewInfo(e.target.value)}
-                  label="Description"
-                  row={5}
+                 
                 />
         </form>
  
       
       <div>
-        {/* {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} onToggle={toggleTodo} onDelete={deleteTodo} />
-        ))} */}
 
       </div>
       </div>
@@ -238,7 +242,7 @@ export default function TodoList() {
           onClick={addTodo}
           className=" text-white ms-1 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
           data-twe-ripple-init
-                data-twe-modal-close
+          data-twe-modal-dismiss
           data-twe-ripple-color="dark">
           Enregistrer
         </button>
