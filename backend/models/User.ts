@@ -1,10 +1,9 @@
 import { Sequelize } from "sequelize";
-import { database } from "../config/database";
 
 // class for defining the User model
 export class User {
   static init(sequelize: Sequelize) {
-    return sequelize.define("User", {
+    return sequelize.define("User", typeof Sequelize.addHook{
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,

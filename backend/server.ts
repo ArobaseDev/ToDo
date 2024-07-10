@@ -16,12 +16,7 @@ app.get('/', (req, res) => {
 });
 
 // Connection to the database
-try {
-  await sequelize.authenticate();
-  console.log('Connection has been established successfully.');
-} catch (err) {
-  console.error('Unable to connect to the database:', err);
-}
+
 
 // Start the server
 app.listen(port, () => {
