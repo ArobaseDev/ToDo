@@ -1,6 +1,3 @@
-//import { useState } from 'react'
-
-import { redirect } from 'react-router-dom'
 import './home.css'
 
 export default function Home() {
@@ -44,7 +41,7 @@ export default function Home() {
   <div className="illustration">
     <img  data-alt="image check-list" className="rightPanel-img"/>
   </div>
-  <h2 type="button" onClick={() =>redirect('/todos-list')} >My TODO App !</h2>
+  <h2>My TODO App !</h2>
 </div>
 
 </div>
