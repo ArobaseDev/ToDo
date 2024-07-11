@@ -1,42 +1,169 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+
+::before,
+::after, * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  background-color: #333;
+  color: #fefefe;
+  font-family: "Orbitron", "Arial ", sans-serif;
+  height: 100vh;
+  width: 100vw;
+}
+
+
+.globalPanel {
+  background: #fefefe;
+  color: #000;
+  display: flex;
+  min-height: 100vh;
+}
+
+.leftPanel {
+  flex: 1 1 33.333%;
+  padding: 25px;
+  margin-top: 20px;
+}
+
+.leftPanel h1 {
+  color: #8b97d7;
+  font-size: 48px;
+  font-weight: 400;
+  margin-bottom: 50px;
+}
+
+.leftPanel h1 strong {
+  color: #5260ad;
+  font-weight: 900;
+}
+
+.formBlock h3 {
+  color: rgb(139, 108, 162);
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 50px;
+}
+
+.formBlock .formGroup {
+  position: relative;
+  display: flex;
+  margin-bottom: 45px;
+}
+
+.formBlock .formGroup label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-15px);
+  font-size: 20px;
+  transition: 0.4s ease-out;
+}
+
+.formBlock .formGroup input {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  outline: 0;
+  background: none;
+  border-bottom: 3px solid #aaa;
+  color: #777;
+  font-size: 20px;
+  transition: 0.4s ease-out;
+}
+.formGroup:nth-child(4) {
+  margin-bottom: 25px;
+  justify-content: flex-end;
+}
+
+.formGroup:nth-child(4) {
+  margin-bottom: 25px;
+  justify-content: flex-end;
+}
+
+.formBlock .formGroup .btn-submit {
+  display: block;
+  width: auto;
+  padding: 15px 60px;
+  border: 3px solid #8b97d7;
+  border-radius: 1000px;
+  justify-content: flex-end;
+  background-image: linear-gradient(
+    to right,
+    transparent 50%,
+    #5260ad 50%,
+    #8b97d7
+  );
+  background-size: 200%;
+  color: #8b97d7;
+  font-size: 24px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.formBlock .formGroup .btn-submit:hover {
+  color: #fff;
+  background-position: 100%;
+  border: 3px solid #fff;
+  border-radius: 1000px;
+}
+
+.formBlock .register a {
+  color: #8b97d7;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  padding-bottom: 5px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+.formBlock .register a:hover {
+  border-bottom-color: #8b97d7;
+}
+
+.rightPanel {
+  flex: 1 1 66.66%;
+  display: flex;
+  background-image: radial-gradient(
+    circle at top,
+    rgba(146, 192, 234, 0.9) 5%,
+    rgba(179, 224, 255, 0.989)
+  );
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(179, 224, 255);
+}
+
+.rightPanel .illustration {
+  border: 0;
+  height: 100%;
+  width: 100%;
+  background: url(./assets/img/home-checklist.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 30px;
+  background-position: center;
+}
+
+.rightPanel h2 {
+  font-size: 48px;
+  font-weight: 400;
   text-align: center;
+  color: #2727a5;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* Animation formulaire 3 - Full login*/
+.formBlock .formGroup:focus-within label,
+.formBlock .formGroup.animation label {
+  top: 0px;
+  transform: translateY(-20px);
+  color: #8b97d7;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.formBlock .formGroup:focus-within input,
+.formBlock .formGroup.animation input {
+  border-color: #8b97d7;
 }
