@@ -105,6 +105,7 @@ export default function TodoList() {
   // ];
 
   const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+  const [filterTodos, setFilterTodos] = useState("all")
 
   const [todos, setTodos] = useState(storedTodos);
   const [newTodo, setNewTodo] = useState("");
@@ -114,7 +115,6 @@ export default function TodoList() {
   
 
   useEffect(() => {
-    // const storedTodos = JSON.parse(localStorage.getItem('todos'));
     if (storedTodos) {
       setTodos(storedTodos);
     }
@@ -262,21 +262,38 @@ export default function TodoList() {
           data-twe-ripple-init
         />
       </div>
+      <div className="btns-filter">
+        <button className="">Toutes les taches</button>
+        <button className="">Taches terminées</button>
+        <button className="">Taches à effectuer</button>
+      </div>
 
       <div className="container grid grid-cols-2 w-1/1 gap-5 h-1/4 ">
         {/* composant ToDo */}
 
-        {todos
-       // .filter(f =>f.completed)
-        .sort((a: { id: number; }, b: { id: number; }) => a.id > b.id  ? -1 : 1)
-        .map((todo : { id: Key | null | undefined }) => (
-          <Todo
-            key={todo.id}
-            todo={todo}
-            onToggle={toggleTodo}
-            onDelete={deleteTodo}
-          />
-        ))}
+        {
+          filterTodos=== 'all' ? todos
+          .sort((a: { id: number; }, b: { id: number; }) => a.id > b.id  ? -1 : 1)
+          .map((todo : { id: Key | null | undefined }) => (
+            <Todo
+              key={todo.id}
+              todo={todo}
+              onToggle={toggleTodo}
+              onDelete={deleteTodo}
+            />
+          )) :  todos
+          .filter(f =>f.completed==filterTodos)
+          .sort((a: { id: number; }, b: { id: number; }) => a.id > b.id  ? -1 : 1)
+          .map((todo : { id: Key | null | undefined }) => (
+            <Todo
+              key={todo.id}
+              todo={todo}
+              onToggle={toggleTodo}
+              onDelete={deleteTodo}
+            />
+          ))
+          
+        }
 
         {/* fin du composant */}
       </div>
