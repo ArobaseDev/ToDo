@@ -1,37 +1,49 @@
 import { useEffect, useState } from 'react'
 import './home.css'
 
-
-
 export default function Home() {
   const[isUserInputActive, setUserInputActive ] = useState(false)
   const[isPasswordInputActive, setPasswordInputActive ] = useState(false)
 
+  const userInput = userRef<HTMLInputElement | null>(null);
+  const passwordInputRef = useRef<HTMLInputElement | null>(null);
+
 useEffect(() => {
+  let userInput = userInputRef.current;
+  let passwordInput = userInputRef.current;
  
-const userInput = document.querySelector('#username')
-const passwordInput = document.querySelector('#password')
- userInput.addEventListener('input', (e) => {
- if(e.target.value !="") {
+ userInput = document.querySelector('#username')
+ passwordInput = document.querySelector('#password')
+
+ if(userInput) {
+  userInput.addEventListener('input', (e: Event) => {
+    const target = e.target as HTMLInputElement
+ if(target.value !="") {
   setUserInputActive(true)
  }else {
   setUserInputActive(false)
  }
   })
-  passwordInput.addEventListener('input', (e) => {
-    if (e.target.value !="") {
+ }
+ 
+if(passwordInput) {
+  passwordInput.addEventListener('input', (e: Event) => {
+    const target = e.target as HTMLInputElement
+    if (target.value !="") {
       setPasswordInputActive(true)
     } else {
       setPasswordInputActive(false)
     }
   })
-   
+}
+  
 },[isUserInputActive, isPasswordInputActive])
 
-const handleSubmit = () => {
+/****** A mettre en place * */
+// const handleSubmit = () => {
 
-  console.log(first)
-}
+  
+// }
 
 
   return (

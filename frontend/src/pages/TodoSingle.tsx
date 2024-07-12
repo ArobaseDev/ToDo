@@ -1,23 +1,33 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, ChangeEvent, FormEvent } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+
+interface Todo {
+  id: number;
+  title: string;
+  description?: string;
+  category?: string;
+  complete?: boolean;
+  created_at: Date
+}
 
 export default function TodoSingle () {
 
 //  const [todo, setTodo] = useState()
-let navigate = useNavigate()
-  let {id} = useParams()
- const [todo, setTodo] = useState()
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('');
-  const [description, setDescription] = useState('');
+const navigate = useNavigate()
+  const {id} = useParams()
+ const [, setTodo] = useState<string>('')
+  const [title, setTitle] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
 
-const storedTodos = JSON.parse(localStorage.getItem('todos'));
+// const storedTodos : Todo[] = JSON.parse(localStorage.getItem('todos'));
 
   useEffect(() => {
     const storedTodos = JSON.parse(localStorage.getItem('todos'));
     if (storedTodos) {
-      const foundTodo = storedTodos.find(todo => todo.id == parseInt(id));
+      const foundTodo = storedTodos.find((todo: Todo ) => todo.id == id );
       if (foundTodo) {
         setTodo(foundTodo);
         setTitle(foundTodo.title || '');
@@ -28,12 +38,12 @@ const storedTodos = JSON.parse(localStorage.getItem('todos'));
   }, [id]);
 
 
-  const handleUpdate = (e) => {
- //   e.preventDefault();
+  const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
+   e.preventDefault();
     const storedTodos = JSON.parse(localStorage.getItem('todos'));
-    const updatedTodos = storedTodos.map(todo => {
+    const updatedTodos = storedTodos.map((todo: Todo) => {
      
-      if (todo.id == parseInt(id)) {
+      if (todo.id == id) {
         return { ...todo, title, category, description };
       }
       return todo;
@@ -41,22 +51,6 @@ const storedTodos = JSON.parse(localStorage.getItem('todos'));
     localStorage.setItem('todos', JSON.stringify(updatedTodos));
     navigate(-1);
   };
-
-
-  useEffect(() => {
-  //  handleUpdate;
- //   console.log(storedTodos)
-    if (storedTodos) {
-  //    const foundTodo = storedTodos.find(todo => todo.id === id);
-  
-  // console.log(foundTodo)
-  //    setTodo(foundTodo);
-    }
-  }, []);
-
-
-  
-
 
   return(
    <>
@@ -131,7 +125,7 @@ const storedTodos = JSON.parse(localStorage.getItem('todos'));
     >Annuler
     </button>
     <button 
-    onClick={() => handleUpdate() }
+    onClick={(e) => {e.preventDefault(); handleUpdate(e)} }
     className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" 
     type="submit"
     >

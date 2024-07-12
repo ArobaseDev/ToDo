@@ -306,6 +306,7 @@ export default function TodoList() {
 
 
       <div className="container grid grid-cols-2 w-1/1 gap-5 h-1/4 ">
+      {/* **** Gestion des filtres à corriger . Fonctionnel mais défilement dans la console *****/}
       {/* <div className="btns-filter">
         <ActionBtn 
         key={1}
