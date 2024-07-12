@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './home.css'
 
 export default function Home() {
   const[isUserInputActive, setUserInputActive ] = useState(false)
   const[isPasswordInputActive, setPasswordInputActive ] = useState(false)
 
-  const userInput = userRef<HTMLInputElement | null>(null);
+  const userInputRef = useRef<HTMLInputElement | null>(null);
   const passwordInputRef = useRef<HTMLInputElement | null>(null);
 
 useEffect(() => {
-  let userInput = userInputRef.current;
-  let passwordInput = userInputRef.current;
+   let userInput = userInputRef.current;
+   let passwordInput = passwordInputRef.current;
  
  userInput = document.querySelector('#username')
  passwordInput = document.querySelector('#password')
