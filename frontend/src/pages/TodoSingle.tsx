@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { useState, useEffect, ChangeEvent, FormEvent } from "react"
+import { useState, useEffect, FormEvent } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 
 interface Todo {
-  id: number;
+  id: string;
   title: string;
   description?: string;
   category?: string;
@@ -21,13 +21,13 @@ const navigate = useNavigate()
   const [title, setTitle] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-
-// const storedTodos : Todo[] = JSON.parse(localStorage.getItem('todos'));
-
+ 
   useEffect(() => {
-    const storedTodos = JSON.parse(localStorage.getItem('todos'));
+    const storedTodos = localStorage.getItem('todos')
     if (storedTodos) {
-      const foundTodo = storedTodos.find((todo: Todo ) => todo.id == id );
+      const todos = JSON.parse(storedTodos)
+      
+      const foundTodo = todos.find((todo: Todo ) => todo.id == id );
       if (foundTodo) {
         setTodo(foundTodo);
         setTitle(foundTodo.title || '');
@@ -37,12 +37,30 @@ const navigate = useNavigate()
     }
   }, [id]);
 
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    const todos = (localStorage.getItem('todos'))
+    if (todos) {
+     const storedTodos = JSON.parse(todos);
+     const updatedTodos = storedTodos.map((todo: Todo) => {
+       if (todo.id == id) {
+         return { ...todo, title, category, description };
+       }
+       return todo;
+     });
+     localStorage.setItem('todos', JSON.stringify(updatedTodos));
+     navigate(-1);
+    }
+    
+  }
+
 
   const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
    e.preventDefault();
-    const storedTodos = JSON.parse(localStorage.getItem('todos'));
+   const todos = (localStorage.getItem('todos'))
+   if (todos) {
+    const storedTodos = JSON.parse(todos);
     const updatedTodos = storedTodos.map((todo: Todo) => {
-     
       if (todo.id == id) {
         return { ...todo, title, category, description };
       }
@@ -50,6 +68,8 @@ const navigate = useNavigate()
     });
     localStorage.setItem('todos', JSON.stringify(updatedTodos));
     navigate(-1);
+   }
+    
   };
 
   return(
@@ -125,7 +145,8 @@ const navigate = useNavigate()
     >Annuler
     </button>
     <button 
-    onClick={(e) => {e.preventDefault(); handleUpdate(e)} }
+//    onClick={(e) => {e.preventDefault(); handleUpdate(e)} }
+    onClick={handleClick}
     className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" 
     type="submit"
     >
