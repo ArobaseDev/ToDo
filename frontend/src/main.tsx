@@ -4,7 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home/Home.tsx'
 import TodoList from './pages/TodoList.tsx'
 import Register from './pages/Register.tsx'
-import TodoSingle from './pages/TodoSingle.tsx'
+import TodoSingle from './pages/TodoEdit.tsx'
 //import App from './App.tsx'
 //import './assets/css/index.css'
 

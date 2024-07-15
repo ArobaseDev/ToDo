@@ -1,26 +1,21 @@
 
-import { RefObject, useEffect } from "react";
+//import { RefObject, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface TodoProps {
- // todo: RefObject;
-  onToggle: (id: Key) => void;
-  onDelete: (id: Key) => void;
+  id: string,
+ todo: any;
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
 }
 
 const Todo: React.FC<TodoProps> = ({ todo, onToggle, onDelete }) => {
-let navigate = useNavigate()
+const navigate = useNavigate()
 
-const update = (id) => {
+const update = (id: number) => {
   console.log(id)
   navigate(`/todos/${todo.id}`)
 }
-
-// useEffect(()=>  {
-// toto
-// },[toto])
-
-
 
   return (
     <>
@@ -70,14 +65,14 @@ const update = (id) => {
           <div className="flex items-center gap-2 justify-end">
             
             <button 
-            className="text-yellow-900  bg-emerald-400  rounded px-3 hover:bg-sky-500"
+              className="btn-xl text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             onClick={() =>{update(todo.id) } }
             >
               Modifier
               </button>
             <button
               onClick={() => onDelete(todo.id)}
-              className="text-red-600 bg-indigo-200  rounded px-3 hover:bg-purple"
+              className="btn-xl text-white bg-indigo-800 hover:bg-cyan-700 focus:ring-4 focus:ring-indigo-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
               Supprimer
             </button>

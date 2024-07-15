@@ -8,7 +8,7 @@ import { Modal, Ripple, initTWE } from "tw-elements";
 import "../assets/css/index.css";
 import ImgAdd from "../assets/img/icons8-plus-188.png";
 import Todo from "./Todo";
-import ActionBtn from "../components/ActionBtn";
+//import ActionBtn from "../components/ActionBtn";
 
 export default function TodoList() {
 
@@ -107,15 +107,16 @@ export default function TodoList() {
   // ];
 
   const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
-  const [filterTodos, setFilterTodos] = useState("all")
+//  const [filterTodos, setFilterTodos] = useState("all")
 
   const [todos, setTodos] = useState(storedTodos);
   const [newTodo, setNewTodo] = useState("");
   const [newInfo, setNewInfo] = useState("");
   const [category, setCategory] = useState("");
+//  const [owner, setOwner] = useState("");
 
   const handleShow = () => true;
-  
+
 
   useEffect(() => {
     if (storedTodos) {
@@ -137,6 +138,7 @@ export default function TodoList() {
       completed: false,
       category: category,
       created_at: new Date().toLocaleDateString(),
+ //     owner: owner
     };
     setTodos([...todos, todo]);
     setNewTodo("");
@@ -166,20 +168,18 @@ export default function TodoList() {
   //   if (filterTodos === 'incomplete') return !todo.completed;
   //   return true;
   // });
-  
+
 
   useEffect(() => {
     initTWE({ Modal, Ripple });
   }, []);
 
   useEffect(() => {
-    
-   // setFilterTodos;
+
+    // setFilterTodos;
   }, [])
 
-  useEffect(() => {
-  
-  },[])
+
 
   return (
     <>
@@ -236,29 +236,29 @@ export default function TodoList() {
               <div className="p-6 space-y-6">
                 <form>
                   <label htmlFor="title" className="text-lg font-medium text-slate-300 block mb-2">Titre</label>
-                <input
-                  className="text-black w-full pl-2 mb-3"
-                  type="text"
-                  value={newTodo}
-                  onChange={(e) => setNewTodo(e.target.value)}
-                />
+                  <input
+                    className="text-black w-full pl-2 mb-3"
+                    type="text"
+                    value={newTodo}
+                    onChange={(e) => setNewTodo(e.target.value)}
+                  />
                   <label htmlFor="category" className="text-lg font-medium text-slate-300 block mb-2">Catégorie</label>
-                <input
-                  className="text-black w-full pl-2 mb-3"
-                  type="text"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                />
+                  <input
+                    className="text-black w-full pl-2 mb-3"
+                    type="text"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  />
                   <label htmlFor="title" className="text-lg font-medium text-gray-500 block ">Description</label>
-                <textarea
-                  className="text-black w-full pl-2 mt-3"
-                  value={newInfo}
-                  rows={4}
-                  onChange={(e) => setNewInfo(e.target.value)}
-                />
-              </form> 
+                  <textarea
+                    className="text-black w-full pl-2 mt-3"
+                    value={newInfo}
+                    rows={4}
+                    onChange={(e) => setNewInfo(e.target.value)}
+                  />
+                </form>
               </div>
-              
+
             </div>
 
             {/* <!-- Modal footer --> */}
@@ -304,10 +304,11 @@ export default function TodoList() {
         />
       </div>
 
-
-      <div className="container grid grid-cols-2 w-1/1 gap-5 h-1/4 ">
-      {/* **** Gestion des filtres à corriger . Fonctionnel mais défilement dans la console *****/}
-      {/* <div className="btns-filter">
+      <main className="main">
+        <section className="left-section m-1  "></section>
+        <section className="axe-section container grid grid-cols-2 w-1/1 gap-5 h-1/4 ">
+          {/* **** Gestion des filtres à corriger . Fonctionnel mais défilement dans la console *****/}
+          {/* <div className="btns-filter">
         <ActionBtn 
         key={1}
           label = "Toutes les taches"
@@ -333,24 +334,27 @@ export default function TodoList() {
           onClick={handleFilterTodos('uncompleted')}
          />
       </div> */}
-        {/* composant ToDo */}
+          {/* composant ToDo */}
 
-        {
-          todos
-          .sort((a: { id: number; }, b: { id: number; }) => a.id > b.id  ? -1 : 1)
-          .map((todo : { id: Key | null | undefined }) => (
-            <Todo
-              key={todo.id}
-              todo={todo}
-              onToggle={toggleTodo}
-              onDelete={deleteTodo}
-            />
-          )) 
-          
-        }
+          {
+            todos
+              .sort((a: { id: number; }, b: { id: number; }) => a.id > b.id ? -1 : 1)
+              .map((todo: { id: Key | null | undefined }) => (
+                <Todo
+                  key={todo.id}
+                  todo={todo}
+                  onToggle={toggleTodo}
+                  onDelete={deleteTodo}
+                />
+              ))
 
-        {/* fin du composant */}
-      </div>
+          }
+
+          {/* fin du composant */}
+        </section>
+        <section className="right-section m-1"> </section>
+      </main>
+
     </>
   );
 }

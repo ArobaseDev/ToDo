@@ -14,7 +14,6 @@ interface Todo {
 
 export default function TodoSingle () {
 
-//  const [todo, setTodo] = useState()
 const navigate = useNavigate()
   const {id} = useParams()
  const [, setTodo] = useState<string>('')
@@ -54,7 +53,7 @@ const navigate = useNavigate()
     
   }
 
-
+// Validation et mise à jour de la todo
   const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
    e.preventDefault();
    const todos = (localStorage.getItem('todos'))
@@ -78,7 +77,7 @@ const navigate = useNavigate()
       <h1 className="h1-site-title"><strong>My TODO</strong>  App</h1>
       
     </div>
-   <div className="bg-white border border-4 rounded-lg shadow relative m-10 ">
+   <div className="bg-white border border-4 rounded-lg shadow relative m-10 w-[70%] mx-auto">
 
 <div className="flex items-start justify-between p-5 border-b rounded-t ">
     <h3 className="text-xl font-semibold text-red-500">
@@ -138,19 +137,18 @@ const navigate = useNavigate()
 </div>
 
 <div className="p-6 gap-3 border-t border-gray-200 rounded-b flex flex-row justify-center">
-    <button 
+    {/* <button 
      onClick={ () => navigate(-1) }
     className="text-white bg-orange-500 hover:bg-orange-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" 
     type="button"
     >Annuler
-    </button>
+    </button> */}
     <button 
-//    onClick={(e) => {e.preventDefault(); handleUpdate(e)} }
     onClick={handleClick}
-    className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" 
+    className="btn-xl text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" 
     type="submit"
     >
-      Enregistrer
+      Modifier
       </button>
 </div>
 
