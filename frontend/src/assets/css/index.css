@@ -11,13 +11,14 @@ body {
 
   fill-opacity: 0.2;
   background: rgba(224, 223, 223, 0.574);
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 
 #root {
-  justify-content: center;
+  /* justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100%; */
 
   /* background: rgb(2, 0, 36); */
   
@@ -25,32 +26,76 @@ body {
 
 .header {
   background-color: rgb(35, 31, 31);
-  height: 100px;
-  position: relative;
+  height: 6.25rem;
+  width: 100%;
+  position: fixed;
   top: 0;
   padding: 2rem;
   display: flex;
   justify-content: space-around;
+  z-index: 99;
 
 }
 
-.container {
+.main {
+  /* background: red; */
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  top: 6.50rem;
+  height: 90%;
+  overflow-x: hidden;
+  
+  /* background-color: bisque; */
+}
+
+section.left-section {
+ /* background-color: rgba(35, 31, 31,0.2); */
+ width:  24%;
+ display: flex;
+ align-items: flex-start;
+ color: slategray;
+ justify-content: center;
+}
+
+section.axe-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  /* height: 100%; */
   width: 50%;
-  margin: 5rem auto;
+  margin: 2rem 0;
+}
+
+section.right-section {
+  /* background-color: rgba(35, 31, 31,0.2); */
+   width:  24%;
+   
+   /* position: fixed; */
 }
 
 .add-todo {
   height: 50px;
-  &:hover{
-    cursor: pointer;
-    width: 60px;
-    transition: width 1s ease-in-out;
-  }
+  
+}
+
+div.register {
+  display: flex;
+  justify-content: space-around;
+}
+
+div.login-error-msg{
+  color: rgb(255, 21, 22);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  text-align: center;
+  margin-top: 4rem;
+  background-color: aqua;
+  padding: 1rem ;
+  border-radius: 0.5rem;
+  transition: all 0.5s ease-in-out;
 }
 
 .todo-checkbox {
@@ -64,10 +109,20 @@ body {
 .inner {
   color: rgba(0, 0, 0, 0.639);
   font-weight:  bold;
+  
+}
+
+h2.inner {
+  font-size: 2.5rem;
 }
 
 .h1-site-title {
-  font-size: 35px;
+  font-size: 2.5rem;
  color: rgb(218, 218, 225);
+}
+
+.btn-primary {
+  background-color: rgb(218, 218, 225);
+  border-color: rgb(218, 218, 225);
 }
 

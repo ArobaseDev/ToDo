@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Key, useEffect, useState } from "react";
+//import { useNavigate } from "react-router-dom";
 //import {Button, Form, Modal} from "react-bootstrap";
 import { Modal, Ripple, initTWE } from "tw-elements";
 
@@ -7,6 +8,7 @@ import { Modal, Ripple, initTWE } from "tw-elements";
 import "../assets/css/index.css";
 import ImgAdd from "../assets/img/icons8-plus-188.png";
 import Todo from "./Todo";
+//import ActionBtn from "../components/ActionBtn";
 
 export default function TodoList() {
 
@@ -105,16 +107,18 @@ export default function TodoList() {
   // ];
 
   const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+//  const [filterTodos, setFilterTodos] = useState("all")
 
   const [todos, setTodos] = useState(storedTodos);
   const [newTodo, setNewTodo] = useState("");
   const [newInfo, setNewInfo] = useState("");
+  const [category, setCategory] = useState("");
+//  const [owner, setOwner] = useState("");
 
   const handleShow = () => true;
-  
+
 
   useEffect(() => {
-    // const storedTodos = JSON.parse(localStorage.getItem('todos'));
     if (storedTodos) {
       setTodos(storedTodos);
     }
@@ -124,17 +128,22 @@ export default function TodoList() {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
+
+
   const addTodo = () => {
     const todo = {
       id: new Date().getTime(),
       title: newTodo,
       description: newInfo,
       completed: false,
+      category: category,
       created_at: new Date().toLocaleDateString(),
+ //     owner: owner
     };
     setTodos([...todos, todo]);
     setNewTodo("");
     setNewInfo("");
+    setCategory("");
   };
 
   const toggleTodo = (id: number) => {
@@ -149,18 +158,37 @@ export default function TodoList() {
     setTodos(todos.filter((todo: { id: number; }) => todo.id !== id));
   };
 
+  // const handleFilterTodos = (filter: string) => {
+  //  setFilterTodos(filter);
+  // };
+
+  // const filteredTodos = todos.filter(todo => {
+  //   if (filterTodos === 'all') return true;
+  //   if (filterTodos === 'completed') return todo.completed;
+  //   if (filterTodos === 'incomplete') return !todo.completed;
+  //   return true;
+  // });
+
+
   useEffect(() => {
     initTWE({ Modal, Ripple });
   }, []);
+
+  useEffect(() => {
+
+    // setFilterTodos;
+  }, [])
+
+
 
   return (
     <>
       {/* <!-- Modal --> */}
       <div
         data-twe-modal-init
-        className="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none pt-[25%]"
+        className="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none pt-[15%]"
         id="addTodoModal"
-        tabIndex="-1"
+        tabIndex={-1}
         aria-labelledby="addTodoModalLabel"
         aria-hidden="true"
       >
@@ -171,10 +199,10 @@ export default function TodoList() {
           <div className="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-black bg-clip-padding text-current shadow-4 outline-none dark:bg-surface-dark">
             <div className="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
               <h5
-                className="text-xl font-medium leading-normal text-surface dark:text-white"
+                className="text-xl font-medium leading-normal text-surface dark:text-amber-500 pl-6 align-center"
                 id="addTodoModalLabel"
               >
-                Ajouter une tâche
+                Ajouter une nouvelle tâche
               </h5>
               <button
                 type="button"
@@ -202,22 +230,35 @@ export default function TodoList() {
 
             {/* <!-- Modal body --> */}
             <div
-              className="relative flex-auto p-4 text-white"
+              className="relative flex-auto p-4 text-white bg-black-400 "
               data-twe-modal-body-ref
             >
-              <form>
-                <input
-                  className="text-black w-full pl-2 mb-3"
-                  type="text"
-                  value={newTodo}
-                  onChange={(e) => setNewTodo(e.target.value)}
-                />
-                <textarea
-                  className="text-black w-full pl-2 mt-3"
-                  value={newInfo}
-                  onChange={(e) => setNewInfo(e.target.value)}
-                />
-              </form> 
+              <div className="p-6 space-y-6">
+                <form>
+                  <label htmlFor="title" className="text-lg font-medium text-slate-300 block mb-2">Titre</label>
+                  <input
+                    className="text-black w-full pl-2 mb-3"
+                    type="text"
+                    value={newTodo}
+                    onChange={(e) => setNewTodo(e.target.value)}
+                  />
+                  <label htmlFor="category" className="text-lg font-medium text-slate-300 block mb-2">Catégorie</label>
+                  <input
+                    className="text-black w-full pl-2 mb-3"
+                    type="text"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  />
+                  <label htmlFor="title" className="text-lg font-medium text-gray-500 block ">Description</label>
+                  <textarea
+                    className="text-black w-full pl-2 mt-3"
+                    value={newInfo}
+                    rows={4}
+                    onChange={(e) => setNewInfo(e.target.value)}
+                  />
+                </form>
+              </div>
+
             </div>
 
             {/* <!-- Modal footer --> */}
@@ -263,23 +304,57 @@ export default function TodoList() {
         />
       </div>
 
-      <div className="container grid grid-cols-2 w-1/1 gap-5 h-1/4 ">
-        {/* composant ToDo */}
+      <main className="main">
+        <section className="left-section m-1  "></section>
+        <section className="axe-section container grid grid-cols-2 w-1/1 gap-5 h-1/4 ">
+          {/* **** Gestion des filtres à corriger . Fonctionnel mais défilement dans la console *****/}
+          {/* <div className="btns-filter">
+        <ActionBtn 
+        key={1}
+          label = "Toutes les taches"
+          moreClass="text-red-500"
+          theme ="primary"
+          type="button"
+          onClick={handleFilterTodos('all')}
+         />
+        <ActionBtn 
+        key={2}
+        type = "button"
+          label = "Taches terminées"
+          moreClass="text-red-500"
+          theme ="primary"
+         onClick={handleFilterTodos('completed')} 
+         />
+        <ActionBtn 
+        key={3}
+        type = "button"
+          label = "Taches à effectuer"
+          moreClass="text-red-500"
+          theme ="primary"
+          onClick={handleFilterTodos('uncompleted')}
+         />
+      </div> */}
+          {/* composant ToDo */}
 
-        {todos
-       // .filter(f =>f.completed)
-        .sort((a: { id: number; }, b: { id: number; }) => a.id > b.id  ? -1 : 1)
-        .map((todo : { id: Key | null | undefined }) => (
-          <Todo
-            key={todo.id}
-            todo={todo}
-            onToggle={toggleTodo}
-            onDelete={deleteTodo}
-          />
-        ))}
+          {
+            todos
+              .sort((a: { id: number; }, b: { id: number; }) => a.id > b.id ? -1 : 1)
+              .map((todo: { id: Key | null | undefined }) => (
+                <Todo
+                  key={todo.id}
+                  todo={todo}
+                  onToggle={toggleTodo}
+                  onDelete={deleteTodo}
+                />
+              ))
 
-        {/* fin du composant */}
-      </div>
+          }
+
+          {/* fin du composant */}
+        </section>
+        <section className="right-section m-1"> </section>
+      </main>
+
     </>
   );
 }

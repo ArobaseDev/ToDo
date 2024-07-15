@@ -170,3 +170,43 @@ body {
 .formBlock .formGroup.animation input {
   border-color: #8b97d7;
 }
+
+@media screen and (max-width: 1200px) {
+  .globalPanel {
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100vw !important;
+    align-items: center;
+  }
+  .rightPanel {
+    display: none;
+  }
+  .leftPanel {
+    width: 70vw !important;
+    padding: 25px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .leftPanel {
+    width: 80vw !important;
+  }
+  .formBlock .formGroup .btn-submit {
+    margin: 0 auto;
+    color: red;
+  }
+  .register {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 400px) {
+  .leftPanel {
+    width: 100vw !important;
+  }
+  .formBlock .formGroup .btn-submit {
+    margin: 0 auto;
+  }
+  .register {
+    text-align: center;
+  }
+}
